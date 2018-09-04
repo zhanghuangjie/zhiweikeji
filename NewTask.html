@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>置维科技-上海置维科技安全响应平台</title>
+  <link rel="shortcut icon" href="favicon.gif?v=2">
+  
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="css/tables.css">
+  
+  <script src="js/jquery-1.7.1.min.js"></script>
+ 
+  <script src="js/jquery-ui-1.8.17.min.js"></script>
+   <script src="js/common.js"></script>
+  <script src="js/styler.js"></script>
+  <script src="js/jquery.tipTip.js"></script>
+  <script src="js/colorpicker.js"></script>
+  <script src="js/sticky.full.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/flot/jquery.flot.min.js"></script>
+  <script src="js/flot/jquery.flot.resize.min.js"></script>
+  <script src="js/jquery.dataTables.min.js"></script>
+  
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+  
+  
+</head>
+<body>
+
+  
+
+<div class="header">
+   <a href="index.html"><img src="img/logo.png" alt="Logo" style=" height:60px;" /></a> 
+   <div class="styler" style="display:none;">
+     <ul class="styler-show">
+       <li><div id="colorSelector-top-bar"></div></li>
+       <li><div id="colorSelector-box-head"></div></li>
+     </ul>
+   </div>
+  </div>
+
+  <div class="top-bar">
+      <ul id="nav">
+        <li id="user-panel">
+          <img src="img/nav/user.jpg" id="usr-avatar" height="46" alt="" />
+          <div id="usr-info">
+            <p id="usr-name">欢迎登陆, user</p>
+            <p id="usr-notif">任务完成提醒 </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.html">Log out</a></p>
+          </div>
+        </li>
+        <li>
+        <ul id="top-nav">
+         <li class="nav-item">
+           <a href="index.html"><img src="img/nav/dash
+.png" alt="" /><p>快捷桌面</p></a>
+         </li>
+         <li class="nav-item">
+           <a href="WorkQueue.html"><img src="img/nav/tb
+.png" alt="" /><p>作业任务</p></a>
+            <ul class="sub-nav">
+            <li><a href="WorkQueue.html">扫描队列</a></li>
+            <li><a href="WorkRecord.html">扫描记录</a></li>
+            <li><a href="WorkTask.html">自动作业</a></li>
+            </ul>
+         </li>
+         <li class="nav-item">
+           <a href="NewTask.html"><img src="img/nav/cal
+-active
+.png" alt="" /><p>新建任务</p></a>
+         </li>
+         <li class="nav-item">
+           <a href="DataReport.html"><img src="img/nav/typ
+.png" alt="" /><p>数据报告</p></a>
+            
+         </li>
+         <li class="nav-item">
+           <a href="SetupSystem.html"><img src="img/nav/widgets
+.png" alt="" /><p>系统设置</p></a>
+         </li>
+         
+         <li class="nav-item">
+           <a href="TeamManage.html"><img src="img/nav/flm
+.png" alt="" /><p>用户团队</p></a>
+         </li>
+         
+       </ul>
+      </li>
+     </ul>
+  </div>  <script type="text/javascript" src="css/boot/bootstrap-select.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/boot/bootstrap-select.css">
+  <link href="css/boot/bootstrap.min.css" rel="stylesheet">
+  <script src="css/boot/bootstrap.min.js"></script>
+  <script src="js/ajaxfileupload.js"></script>
+  <script src="js/forms/fileinput.js"></script>
+  <script src="js/forms/iphone-check.js"></script>
+  <script src="js/forms/jquery.validate.min.js"></script>
+    <script src="js/forms/jquery.validate.min.js"></script>
+  <script src="js/sh/shCore.js" type="text/javascript"></script>
+  <script src="js/sh/shBrushXml.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="css/date/flatpickr.min.css">
+  <script src="css/date/flatpickr.min.js" type="text/javascript"></script>
+  
+ 
+  
+  
+   <div class="content container_12">
+    <div class="box grid_4">
+      <div class="box-head"><h2>项目设置</h2></div>
+       
+        <div class="box-content" style=" min-height:400px;">
+        	
+           <div class="form-row">
+           <label class="form-label">项目名称</label><div class="form-item"><input type="text" id="title" name="title" /><span class="form-icon fugue-2 database"></span> </div></div>
+          <div class="form-row">
+            <label class="form-label">团队设置</label>
+            <div class="form-item">
+              <select id="team" name="team">
+                <option value=''>选择团队</option>
+<option value="23"> SVN团队</option>
+<option value="24"> SVN团队/姬欢</option>
+<option value="8"> UI团队</option>
+<option value="22"> UI团队/李睿</option>
+<option value="25"> UI团队/李睿/echo</option>
+<option value="4"> DK团队</option>
+<option value="7"> DK团队/徐容</option>
+<option value="5"> DK团队/司立</option>
+<option value="3"> CRM团队</option>
+<option value="28"> CRM团队/冯佳杰</option>
+</select>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">文件设置</label>
+            
+            
+      <span>
+      
+         <input type="button" id="open-dialog" class="button green" value="本地上传">
+          </span>
+          <span>
+         <input type="button" id="open-remote" class="button blue" value="远程文件">
+        
+       </span>
+    
+          </div>
+          
+           <div class="form-row">
+           <p class="form-label">文件过滤</p><div class="form-item">
+             <textarea name="doc" id="doc"></textarea>
+          <span class="form-icon fugue-3 folder-open-document-text"></span></div></div>
+           <div class="form-row">
+          <p class="form-label">文件夹过滤</p><div class="form-item">
+            <textarea name="bag" id="bag"></textarea>
+          <span class="form-icon fugue-3 folder-horizontal"></span></div></div>
+          
+          
+          
+          
+       
+       <div class="clear"></div>
+      </div>
+    </div>
+    
+      <div class="box grid_4">
+      <div class="box-head"><h2>基础设置</h2></div>
+       
+        <div class="box-content" style=" min-height:400px;">
+        	
+           <div class="form-row">
+           <label class="form-label">接口选择</label>
+            <div class="form-item">
+             
+            </div>
+          </div>
+          <div class="form-row">
+           <label class="form-label"></label>
+         <div class="form-item" style="line-height:25px;">
+<label > <input  type='checkbox' value="10005" class="jiekou"  id="jiekou10005" name="jiekou" style="width:auto;" />&nbsp;天机多态扫描　</label> 　
+<label > <input  type='checkbox' value="10004" class="jiekou"  id="jiekou10004" name="jiekou" style="width:auto;" />&nbsp;天眼扫描　</label> 　
+<label > <input  type='checkbox' value="10003" class="jiekou"  id="jiekou10003" name="jiekou" style="width:auto;" />&nbsp;集成多态　</label> 　
+<label > <input  type='checkbox' value="10002" class="jiekou"  id="jiekou10002" name="jiekou" style="width:auto;" />&nbsp;白盒工具　</label> 　
+<label > <input  type='checkbox' value="10001" class="jiekou"  id="jiekou10001" name="jiekou" style="width:auto;" />&nbsp;静态测试工具　</label> 　
+<label > <input  type='checkbox' value="5" class="jiekou"  id="jiekou5" name="jiekou" style="width:auto;" />&nbsp;动态测试工具　</label> 　
+</div>
+            </div>
+          
+
+          <div class="form-row">
+            <label class="form-label">扫描消息</label>
+            <div class="form-item">
+             
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label"></label>
+            
+            
+      <span>
+      
+         扫描提交发送：<input type="button" id="open-send" class="button orange" value="选择接收人">
+          </span><br /><br />
+ <label class="form-label"></label>
+          <span>
+        
+         扫描失败发送：<input type="button" id="open-err" class="button orange" value="选择接收人">
+       </span><br /><br />
+ <label class="form-label"></label>
+     <span>
+        
+         扫描成功发送：<input type="button" id="open-ok" class="button orange" value="选择接收人">
+       </span>
+          </div>
+          
+           <div class="form-row">
+           <p class="form-label">作业设置</p><div class="form-item"></div></div>
+           
+          <div class="form-row">
+            <label class="form-label"></label>
+          
+              <input name='pos' class="poscl" type='radio' value='1' />立即执行
+            <input name='pos' class="poscl" type='radio' value='2' />计划执行
+           
+          </div>
+          
+          <div class="form-row">
+            <label class="form-label"></label>
+           
+          </div>
+         
+       
+       <div class="clear"></div>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="box grid_4">
+      <div class="box-head"><h2>配置</h2></div>
+       
+        <div class="box-content" style=" min-height:400px;">
+<div id="mod10005"></div>
+<div id="mod10004"></div>
+<div id="mod10003"></div>
+<div id="mod10002"></div>
+<div id="mod10001"></div>
+<div id="mod5"></div>
+<div id="modclock">
+         
+            <div class="form-row">
+            <label class="form-label"><input name="" type="checkbox" value="" /> 定时</label>
+            <div class="form-item">
+              <input type="text" id="datepicker" data-enable-time=true data-time_24hr=true data-default-date="2018-06-14 10:11:00 -0300" />
+              <span class="form-icon fugue-2 calendar-day"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label"><input name="" type="checkbox" value="" /> 重复 </label>
+              </div>
+           <div class="form-row">
+          <br />
+
+            <label class="form-label"></label>
+              
+月：<select id="id_select" class="selectpicker bla bla bli" multiple data-live-search="true">
+    			<option value="1"> 一月 </option>
+                <option value="2"> 二月 </option>
+                <option value="3"> 三月 </option>
+                <option value="4"> 四月 </option>
+                <option value="5"> 五月 </option>
+                <option value="6"> 六月 </option>
+                <option value="7"> 七月 </option>
+                <option value="8"> 八月 </option>
+                <option value="9"> 九月 </option>
+                <option value="10"> 十月 </option>
+                <option value="11"> 十一月 </option>
+                <option value="12"> 十二月 </option>
+            </optgroup>
+          </select>
+  <br />
+
+            <label class="form-label"></label>
+             
+           日：<select id="date" name="date"  class="selectpicker bla bla bli" multiple data-live-search="true">
+               
+                
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+                <option value="10"> 10 </option>
+                <option value="11"> 11 </option>
+                <option value="12"> 12 </option>
+                <option value="13"> 13 </option>
+                <option value="14"> 14 </option>
+                <option value="15"> 15 </option>
+                <option value="16"> 16 </option>
+                <option value="17"> 17 </option>
+                <option value="18"> 18 </option>
+                <option value="19"> 19 </option>
+                <option value="20"> 20 </option>
+                <option value="21"> 21 </option>
+                <option value="22"> 22 </option>
+                <option value="23"> 23 </option>
+                <option value="24"> 24 </option>
+                <option value="25"> 25 </option>
+                <option value="26"> 26 </option>
+                <option value="27"> 27 </option> 
+                <option value="27"> 28 </option> 
+                <option value="27"> 29 </option> 
+                <option value="27"> 30 </option> 
+                <option value="27"> 31 </option>  
+              </select> 
+              
+             <br />
+
+            <label class="form-label"></label>
+            周：<select id="week" class="selectpicker bla bla bli" multiple data-live-search="true">
+    			<option value="1"> 第一周 </option>
+                <option value="2"> 第二周  </option>
+                <option value="3"> 第三周  </option>
+                <option value="4"> 第四周  </option>
+                <option value="5"> 第五周  </option>
+                
+                </optgroup>
+                 </select> 
+               <br />
+
+            <label class="form-label"></label>
+               日：<select id="weekdate" class="selectpicker bla bla bli" multiple data-live-search="true">
+    			<option value="1"> 星期一 </option>
+                <option value="2"> 星期二  </option>
+                <option value="3"> 星期三  </option>
+                <option value="4"> 星期四  </option>
+                <option value="5"> 星期五  </option>
+                 <option value="6"> 星期六  </option>
+                  <option value="7"> 星期日  </option>
+                
+                </optgroup>
+                 </select> <br />
+                  <label class="form-label"></label>
+时：<input type="text" id="datepickers" data-enable-time=true data-no-calendar=true data-time_24hr=true data-default-date="2018-06-14 10:11:00 -0300"  style="width:212px;" />
+              </div>
+                <div class="form-row">
+            <label class="form-label"></label>
+               <div class="form-item">
+              
+              <span class="form-icon fugue-2 calendar-day"></span>
+            </div>
+              </div>
+          </div>
+           
+          
+           
+          
+          
+          
+          
+       
+       <div class="clear"></div>
+      </div>
+      
+    </div>
+    
+    
+        <div class="box grid_12">
+         <div class="box-content" >
+        <div class="form-row">
+            <label class="form-label"></label> <label class="form-label"></label> <label class="form-label"></label> <label class="form-label"></label> <label class="form-label"></label> <label class="form-label"></label> <label class="form-label"></label>
+            <input type="button" class="button big red" id="submit" value="提交"> <input type="button" class="button big grey disabled" value="取消">
+          </div>
+           <div class="clear"></div>
+        </div>
+</div>
+    </div>
+
+       <div id="dialog" title="本地上传">
+       <p>选择文件：<br><br>
+       <div class="form-item">
+      <div class="form-item file-upload">
+              <input />
+               <input id="filesrc" name="filesrc" type="hidden" source="1000" size="0" />
+              <input class="filebase" type="file" id="zipupload" name="zipupload"  />
+              <span class="form-icon fugue-2 control-eject"></span>
+            </div>
+      </div>
+      <br><br>
+       <input type="button" class="button orange" id="upload" value="确认上传">
+       </p>
+     </div>
+     
+     
+       <div id="modal-remote" title="远程文件">
+       <p>获取方式：<br><br>
+        <div class="form-item">
+              <select id="postmode" name="postmode">
+                <option value=''>获取方式</option>
+<option value="1001"> SVN </option>
+<option value="1002"> GIT </option>
+</select>
+            </div>
+           <br><br>
+          凭证：<br><br>
+        <div class="form-item">
+        <input type="text" id="voucher" name="voucher" readonly="readonly" />
+              <span class="form-icon fugue-3 lock-plus"></span>
+            </div>
+         
+       
+      <br><br>
+       <input type="button" class="button orange" id="putbotton" value="确认上传">
+       </p>
+     </div>
+     
+     <div id="modal-dialog" title="远程抓取">
+       <p>选择<br><br>
+       </br>
+       </p>
+     </div>
+     
+     
+     <div id="modal-send" title="扫描提交">
+       <p>输入邮件：<br><br>
+       <div class="form-item"><input type="text" id="sendemail" name="sendemail" /></div>
+      <br><br>
+       <p>选择：<br><br>
+<label><input  type='checkbox' value="23" name="sendbox" class="sendbox" />SVN团队 </label></br>
+<label><input  type='checkbox' value="24" name="sendbox" class="sendbox" />SVN团队/姬欢 </label></br>
+<label><input  type='checkbox' value="8" name="sendbox" class="sendbox" />UI团队 </label></br>
+<label><input  type='checkbox' value="22" name="sendbox" class="sendbox" />UI团队/李睿 </label></br>
+<label><input  type='checkbox' value="25" name="sendbox" class="sendbox" />UI团队/李睿/echo </label></br>
+<label><input  type='checkbox' value="4" name="sendbox" class="sendbox" />DK团队 </label></br>
+<label><input  type='checkbox' value="7" name="sendbox" class="sendbox" />DK团队/徐容 </label></br>
+<label><input  type='checkbox' value="5" name="sendbox" class="sendbox" />DK团队/司立 </label></br>
+<label><input  type='checkbox' value="3" name="sendbox" class="sendbox" />CRM团队 </label></br>
+<label><input  type='checkbox' value="28" name="sendbox" class="sendbox" />CRM团队/冯佳杰 </label></br>
+<br><br>
+    <input type="button" id="baocun" class="button big grey disabled" value="提交">
+       </p>
+     </div>
+     
+     <div id="modal-ok" title="扫描成功">
+      <p>输入邮件：<br><br>
+       <div class="form-item"><input type="text"  id="okemail" name="okemail"/></div>
+      <br><br>
+       <p>选择：<br><br>
+<label><input  type='checkbox' value="23" name="okbox" class="okbox" />SVN团队 </label></br>
+<label><input  type='checkbox' value="24" name="okbox" class="okbox" />SVN团队/姬欢 </label></br>
+<label><input  type='checkbox' value="8" name="okbox" class="okbox" />UI团队 </label></br>
+<label><input  type='checkbox' value="22" name="okbox" class="okbox" />UI团队/李睿 </label></br>
+<label><input  type='checkbox' value="25" name="okbox" class="okbox" />UI团队/李睿/echo </label></br>
+<label><input  type='checkbox' value="4" name="okbox" class="okbox" />DK团队 </label></br>
+<label><input  type='checkbox' value="7" name="okbox" class="okbox" />DK团队/徐容 </label></br>
+<label><input  type='checkbox' value="5" name="okbox" class="okbox" />DK团队/司立 </label></br>
+<label><input  type='checkbox' value="3" name="okbox" class="okbox" />CRM团队 </label></br>
+<label><input  type='checkbox' value="28" name="okbox" class="okbox" />CRM团队/冯佳杰 </label></br>
+<br><br>
+    
+       </p>
+     </div>
+     
+     <div id="modal-err" title="扫描失败">
+       <p>输入邮件：<br><br>
+       <div class="form-item"><input type="text" id="erremail" name="erremail" /></div>
+      <br><br>
+       <p>选择：<br><br>
+<label><input  type='checkbox' value="23" name="errbox" class="errbox" />SVN团队 </label></br>
+<label><input  type='checkbox' value="24" name="errbox" class="errbox" />SVN团队/姬欢 </label></br>
+<label><input  type='checkbox' value="8" name="errbox" class="errbox" />UI团队 </label></br>
+<label><input  type='checkbox' value="22" name="errbox" class="errbox" />UI团队/李睿 </label></br>
+<label><input  type='checkbox' value="25" name="errbox" class="errbox" />UI团队/李睿/echo </label></br>
+<label><input  type='checkbox' value="4" name="errbox" class="errbox" />DK团队 </label></br>
+<label><input  type='checkbox' value="7" name="errbox" class="errbox" />DK团队/徐容 </label></br>
+<label><input  type='checkbox' value="5" name="errbox" class="errbox" />DK团队/司立 </label></br>
+<label><input  type='checkbox' value="3" name="errbox" class="errbox" />CRM团队 </label></br>
+<label><input  type='checkbox' value="28" name="errbox" class="errbox" />CRM团队/冯佳杰 </label></br>
+<br><br>
+    
+       </p>
+     </div>
+     
+     
+     <div id="modal-svn" title="SVN凭证">
+      
+       <p>选择：<br><br>
+         <div class="form-item"> <select id="svnselect" name="svnselect">
+                <option value='0' selected="selected">选择快捷获取方式</option>
+<option value="1"> 本地测试</option>
+<option value='-1'>选择新项</option>
+              </select>
+       </div>
+      <div class="newsvnhide">
+      <br><br>
+      <p>简称：<br><br>
+       <div class="form-item"><input type="text" id="svntitle" placeholder="保存时需要" name="svntitle" /></div>
+      <br><br>
+       <p>帐号：<br><br>
+       <div class="form-item"><input type="text" id="svnzhanghao" name="svnzhanghao" /></div>
+      <br><br>
+       <p>密码：<br><br>
+       <div class="form-item"><input type="text" id="svnmima" name="svnmima" /></div>
+      <br><br>
+       <p>路径：<br><br>
+       <div class="form-item"><input type="text" id="svndir" name="svndir" /></div>
+      </div>
+      <br><br>
+    <input type="button" id="svnok" class="button small blue" value="确定"><input type="button" id="svnonsave" class="button small red" value="确定并保存">
+       </p>
+     </div>
+     
+     
+    <script> /* SCRIPTS */
+
+
+    
+   
+ $(window).on('load', function () {
+
+           
+ $('.selectpicker').selectpicker({
+                'selectedText': 'cat'
+            });
+
+         
+   // $('.selectpicker').selectpicker('hide');
+        });
+  
+ 
+
+
+  $('.icons li').tipTip({attribute: "class", delay: "100"}); 
+  /* for showing icon class */
+  $(function() {
+      $( "#tabs" ).tabs();
+  }); /* for creating the icon jQ UI tabs */
+</script>
+  
+  <script src="js/newtask.js?v=1" type="text/javascript"></script> 
+  <script> /* SCRIPTS */
+
+$(function() {
+
+  $('#tip-left').tipTip({attribute: "value", delay: "100", defaultPosition: "left"});
+  $('#tip-top').tipTip({attribute: "value", delay: "100", defaultPosition: "top"});
+  $('#tip-right').tipTip({attribute: "value", delay: "100", defaultPosition: "right"});
+  $('#tip-bottom').tipTip({attribute: "value", delay: "100", defaultPosition: "bottom"}); 
+
+   $('#slider').slider({
+      range: "min",
+      value: 50
+   });
+ $("#baocun").click(function(){
+ $("#modal-send").hide();
+ 
+ });
+   $('#range-slider').slider({ 
+      range: true, 
+      min: 0,
+      max: 400,
+      values: [ 100, 300 ] 
+   });
+
+   $( "#eq > span" ).each(function() {
+      var value = parseInt( $( this ).text(), 10 );
+      $( this ).empty().slider({
+        value: value,
+        range: "min",
+        animate: true,
+        orientation: "vertical"
+      });
+    });
+
+   $( "#accordion" ).accordion({ fillSpace: true });
+
+   $( "#tabs" ).tabs();
+
+    $("#progressbar").progressbar({
+      value: 1
+    });
+    $("#progressbar .ui-progressbar-value").addClass("ui-corner-right");
+
+    new_width = "100%";
+    loop_width = "1%";
+    $("#progressbar .ui-progressbar-value").animate({width: new_width}, 60000);
+
+
+/**成功*/
+$( "#modal-svn" ).dialog({
+      autoOpen: false,
+      resizable: false,
+   modal: true,
+      buttons: {
+
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+/***/
+
+/**远程*/
+$( "#modal-remote" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      buttons: {
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+$( "#open-remote" ).click(function() {
+      $( "#modal-remote" ).dialog( "open" );
+      return false;
+    });
+/***/
+/**提交*/
+$( "#modal-send" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      buttons: {
+
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+$( "#open-send" ).click(function() {
+      $( "#modal-send" ).dialog( "open" );
+      return false;
+    });
+/***/
+/**成功*/
+$( "#modal-ok" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      buttons: {
+
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+$( "#open-ok" ).click(function() {
+      $( "#modal-ok" ).dialog( "open" );
+      return false;
+    });
+/***/
+/**失败*/
+$( "#modal-err" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      buttons: {
+
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+$( "#open-err" ).click(function() {
+      $( "#modal-err" ).dialog( "open" );
+      return false;
+    });
+/***/
+
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      buttons: {
+  
+
+  
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+    $( "#open-dialog" ).click(function() {
+      $( "#dialog" ).dialog( "open" );
+      return false;
+    });
+
+    $( "#modal-dialog" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      modal: true,
+      buttons: {
+
+        Close: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+    $( "#open-modal-dialog" ).click(function() {
+      $( "#modal-dialog" ).dialog( "open" );
+      return false;
+    });
+
+    $('#open-notif').click(function () {
+        $.sticky('I am a simple notification.')
+    });
+
+    $('#open-comp-notif').click(function () {
+        $.sticky('<b>I am a complex notification.</b><br><br><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>')
+    });
+
+    SyntaxHighlighter.all()
+
+    $('#iphone-check').iphoneStyle();
+ 
+   
+
+    $("#colorpicker").ColorPicker();
+$("#datepicker").flatpickr(); 
+$("#datepickers").flatpickr(); 
+$("#modclock").hide();
+});
+
+</script>
+  
+<div class="footer">
+  <p>上海置维科技安全响应平台</p>
+</div>
+
+
+
+
+</body>
+</html>

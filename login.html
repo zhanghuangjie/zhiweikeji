@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <link rel="shortcut icon" href="favicon.gif">
+  
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="css/login.css">
+  
+  <script src="js/jquery-1.7.1.min.js"></script>
+  <script src="js/jquery.spinner.js"></script>
+  <script type="text/javascript" src="js/forms/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="css/tables.css">
+  <script src="js/sticky.full.js"></script>
+  <script src="js/jquery.dataTables.min.js"></script>
+  
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+  
+  
+    
+    
+  <script>
+    $(document).ready(function () {
+       $('div.wrapper').hide();
+        $('div.wrapper').fadeIn(1200);
+        $('#lg-form').validate();
+        $('.submit').click(function() {
+        var  = $(this);
+        .spinner();
+
+        setTimeout(function() {
+                .spinner('remove');
+        }, 1000);
+       });
+  
+ 
+    });
+  </script>
+</head>
+<body>
+<div class="wrapper">
+   
+<div class="logo">
+         <img src="img/logo.png" alt="Logo" style=" height:60px;">
+ 	<h1></h1>
+ </div>
+   <div class="lg-body">
+     <div class="inner">
+       <div id="lg-head">
+         <p><span class="font-bold"></span> 请登录进入管理面板.</p>
+         <div class="separator"></div>
+       </div>
+       <div class="login">
+         <form id="lg-form" method="post" action="login.html">
+           <fieldset>
+              <ul>
+                 <li id="usr-field">
+                  <input class="input required" name="name" id="name" type="text" size="26" minlength ="1" placeholder="登陆账号..." />
+                 </li>
+                 <li id="psw-field">
+                  <input class="input required" name="password" id="password" type="password" size="26" minlength="1" placeholder="登陆密码..." />
+                 </li>
+                 <li>
+                  &nbsp;
+                 </li>
+                 <li>
+                  <input class="submit" type="submit" value=""/>
+                 </li>
+              </ul>
+           </fieldset>
+          </form>
+          <span id="lost-psw">
+           
+          </span>
+        </div>
+     </div>
+    </div>
+</div>
+<script>
+$(function(){
+
+
+ $("#lg-form").submit(function(){
+  if(!$("#name").val()){
+$.sticky('<b>提醒：</b><br><br><p>请输入登陆账号！</p>')
+$("#name").focus()
+return false;
+}
+if(!$("#password").val()){
+$.sticky('<b>提醒：</b><br><br><p>请输入登陆密码！</p>')
+$("#password").focus()
+return false;
+}
+
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="../js/ztree/js/jquery.ztree.all.min.js"></script>
+	<SCRIPT type="text/javascript">
+		<!--
+		var setting = {
+			data: {
+				key: {
+					title:"t"
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onClick: onClick
+			}
+		};
+
+		var zNodes =[
+			{ id:1, pId:0, name:"普通的父节点", t:"我很普通，随便点我吧", open:true},
+			{ id:11, pId:1, name:"叶子节点 - 1", t:"我很普通，随便点我吧"},
+			{ id:12, pId:1, name:"叶子节点 - 2", t:"我很普通，随便点我吧"},
+			{ id:13, pId:1, name:"叶子节点 - 3", t:"我很普通，随便点我吧"},
+			{ id:2, pId:0, name:"NB的父节点", t:"点我可以，但是不能点我的子节点，有本事点一个你试试看？", open:true},
+			{ id:21, pId:2, name:"叶子节点2 - 1", t:"你哪个单位的？敢随便点我？小心点儿..", click:false},
+			{ id:22, pId:2, name:"叶子节点2 - 2", t:"我有老爸罩着呢，点击我的小心点儿..", click:false},
+			{ id:23, pId:2, name:"叶子节点2 - 3", t:"好歹我也是个领导，别普通群众就来点击我..", click:false},
+			{ id:3, pId:0, name:"郁闷的父节点", t:"别点我，我好害怕...我的子节点随便点吧...", open:true, click:false },
+			{ id:31, pId:3, name:"叶子节点3 - 1", t:"唉，随便点我吧"},
+			{ id:32, pId:3, name:"叶子节点3 - 2", t:"唉，随便点我吧"},
+			{ id:33, pId:3, name:"叶子节点3 - 3", t:"唉，随便点我吧"}
+		];
+
+		var log, className = "dark";
+		function beforeClick(treeId, treeNode, clickFlag) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeClick ]&nbsp;&nbsp;" + treeNode.name );
+			return (treeNode.click != false);
+		}
+		function onClick(event, treeId, treeNode, clickFlag) {
+			showLog("[ "+getTime()+" onClick ]&nbsp;&nbsp;clickFlag = " + clickFlag + " (" + (clickFlag===1 ? "普通选中": (clickFlag===0 ? "<b>取消选中</b>" : "<b>追加选中</b>")) + ")");
+		}		
+		function showLog(str) {
+			if (!log) log = $("#log");
+			log.append("<li class='"+className+"'>"+str+"</li>");
+			if(log.children("li").length > 8) {
+				log.get(0).removeChild(log.children("li")[0]);
+			}
+		}
+		function getTime() {
+			var now= new Date(),
+			h=now.getHours(),
+			m=now.getMinutes(),
+			s=now.getSeconds();
+			return (h+":"+m+":"+s);
+		}
+
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		});
+		//-->
+	</SCRIPT>
+</HEAD>
+
+<BODY>
+<!--<div class="content_wrap">
+	<div class="zTreeDemoBackground left">
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+	<div class="right">
+		<ul class="info">
+			<li class="title"><h2>1、beforeClick / onClick 事件回调函数控制</h2>
+				<ul class="list">
+				<li>利用 click 事件回调函数 可以进行各种其他的附加操作，这里简单演示如何监控此事件</li>
+				<li><p><span class="highlight_red">请尝试按下 <b>Ctrl</b> 或 <b>Cmd</b> 键进行 多节点选择 和 取消选择</span><br/>
+					click log:<br/>
+					<ul id="log" class="log"></ul></p>
+				</li>
+				</ul>
+			</li>
+			<li class="title"><h2>2、setting 配置信息说明</h2>
+				<ul class="list">
+				<li class="highlight_red">需要设置 setting.callback.beforeClick 和  setting.callback.onClick 属性, 详细请参见 API 文档中的相关内容</li>
+				</ul>
+			</li>
+			<li class="title"><h2>3、treeNode 节点数据说明</h2>
+				<ul class="list">
+				<li>对 节点数据 没有特殊要求，用户可以根据自己的需求添加自定义属性</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>-->
+<div class="row">
+	<div class="col-md-4 order-md-1 mb-4">
+		<h4 class="d-flex justify-content-between align-items-center mb-3 mt-5">
+			<span class="text-muted">团队管理</span>
+			<span class="badge badge-secondary badge-pill">4</span>
+		</h4>
+		<ul class="list-group mb-3">
+			<li class="list-group-item d-flex justify-content-between lh-condensed">
+				<div>
+					<h6 class="my-0">Product name</h6>
+					<small class="text-muted">Brief description</small>
+				</div>
+				<span class="text-muted">$12</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between lh-condensed">
+				<div>
+					<h6 class="my-0">Second product</h6>
+					<small class="text-muted">Brief description</small>
+				</div>
+				<span class="text-muted">$8</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between lh-condensed">
+				<div>
+					<h6 class="my-0">Third item</h6>
+					<small class="text-muted">Brief description</small>
+				</div>
+				<span class="text-muted">$5</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between bg-light">
+				<div class="text-success">
+					<h6 class="my-0">Promo code</h6>
+					<small>EXAMPLECODE</small>
+				</div>
+				<span class="text-success">-$5</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between">
+				<span>Total (USD)</span>
+				<strong>$20</strong>
+			</li>
+		</ul>
+
+		<form class="card p-2">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Promo code">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-secondary">Redeem</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-8 order-md-2">
+		<h4 class="mb-3 mt-5">Billing address</h4>
+		<form class="needs-validation" novalidate>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="firstName">First name</label>
+					<input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+					<div class="invalid-feedback">
+						Valid first name is required.
+					</div>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="lastName">Last name</label>
+					<input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+					<div class="invalid-feedback">
+						Valid last name is required.
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="username">Username</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">@</span>
+					</div>
+					<input type="text" class="form-control" id="username" placeholder="Username" required>
+					<div class="invalid-feedback" style="width: 100%;">
+						Your username is required.
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="email">Email <span class="text-muted">(Optional)</span></label>
+				<input type="email" class="form-control" id="email" placeholder="you@example.com">
+				<div class="invalid-feedback">
+					Please enter a valid email address for shipping updates.
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="address">Address</label>
+				<input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+				<div class="invalid-feedback">
+					Please enter your shipping address.
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+				<input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+			</div>
+
+			<div class="row">
+				<div class="col-md-5 mb-3">
+					<label for="country">Country</label>
+					<select class="custom-select d-block w-100" id="country" required>
+						<option value="">Choose...</option>
+						<option>United States</option>
+					</select>
+					<div class="invalid-feedback">
+						Please select a valid country.
+					</div>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="state">State</label>
+					<select class="custom-select d-block w-100" id="state" required>
+						<option value="">Choose...</option>
+						<option>California</option>
+					</select>
+					<div class="invalid-feedback">
+						Please provide a valid state.
+					</div>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="zip">Zip</label>
+					<input type="text" class="form-control" id="zip" placeholder="" required>
+					<div class="invalid-feedback">
+						Zip code required.
+					</div>
+				</div>
+			</div>
+			<hr class="mb-4">
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="same-address">
+				<label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+			</div>
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="save-info">
+				<label class="custom-control-label" for="save-info">Save this information for next time</label>
+			</div>
+			<hr class="mb-4">
+
+			<h4 class="mb-3">Payment</h4>
+
+			<div class="d-block my-3">
+				<div class="custom-control custom-radio">
+					<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+					<label class="custom-control-label" for="credit">Credit card</label>
+				</div>
+				<div class="custom-control custom-radio">
+					<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+					<label class="custom-control-label" for="debit">Debit card</label>
+				</div>
+				<div class="custom-control custom-radio">
+					<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+					<label class="custom-control-label" for="paypal">Paypal</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="cc-name">Name on card</label>
+					<input type="text" class="form-control" id="cc-name" placeholder="" required>
+					<small class="text-muted">Full name as displayed on card</small>
+					<div class="invalid-feedback">
+						Name on card is required
+					</div>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="cc-number">Credit card number</label>
+					<input type="text" class="form-control" id="cc-number" placeholder="" required>
+					<div class="invalid-feedback">
+						Credit card number is required
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 mb-3">
+					<label for="cc-expiration">Expiration</label>
+					<input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+					<div class="invalid-feedback">
+						Expiration date required
+					</div>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="cc-expiration">CVV</label>
+					<input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+					<div class="invalid-feedback">
+						Security code required
+					</div>
+				</div>
+			</div>
+			<hr class="mb-4">
+			<button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+		</form>
+	</div>
+</div>
+</BODY>
+</HTML>
