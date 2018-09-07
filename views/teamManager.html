@@ -7,6 +7,28 @@
 	<script src="../js/common.js"></script>
 	<script src="../js/teamManager/team.js"></script>
 	<link rel="stylesheet" href="../resources/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<style type="text/css">
+		.ztree * {font-size: 10pt;font-family:"Microsoft Yahei",Verdana,Simsun,"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial}
+		.ztree li ul{ margin:0; padding:0}
+		.ztree li {line-height:30px;}
+		.ztree li a {width:200px;height:30px;padding-top: 0px;}
+		.ztree li a:hover {text-decoration:none; background-color: #E7E7E7;}
+		.ztree li a span.button.switch {visibility:hidden}
+		.ztree.showIcon li a span.button.switch {visibility:visible}
+		.ztree li a.curSelectedNode {background-color:#D4D4D4;border:0;height:30px;}
+		.ztree li span {line-height:30px;}
+		.ztree li span.button {margin-top: -7px;}
+		.ztree li span.button.switch {width: 16px;height: 16px;}
+
+		.ztree .team {font-size: 150%;font-weight: bold;}
+		.ztree li span.button {background-image:url("../img/ztree/left_menuForOutLook.png"); *background-image:url("../img/ztree/left_menuForOutLook.gif")}
+		.ztree li span.button.switch.level0 {width: 20px; height:20px}
+		.ztree li span.button.switch.level1 {width: 20px; height:20px}
+		.ztree li span.button.noline_open {background-position: 0 0;}
+		.ztree li span.button.noline_close {background-position: -18px 0;}
+		.ztree li span.button.noline_open.level0 {background-position: 0 -18px;}
+		.ztree li span.button.noline_close.level0 {background-position: -18px -18px;}
+	</style>
 	<SCRIPT type="text/javascript">
 		var setting = {
             async: {
@@ -32,15 +54,50 @@
 				beforeClick: beforeClick,
 				onClick: onClick,
                 beforeAsync : beforeAsync
-			}
+			},
+            view: {
+                addHoverDom: addHoverDom,
+                removeHoverDom: removeHoverDom,
+                showLine: false,
+                showIcon: true,
+                selectedMulti: false,
+                dblClickExpand: false,
+                addDiyDom : addDiyDom
+        	}
+
 		};
 
-		function beforeClick(treeId, treeNode, clickFlag) {
+        function addDiyDom(treeId, treeNode) {
+            var spaceWidth = 5;
+            var switchObj = $("#" + treeNode.tId + "_switch"),
+                icoObj = $("#" + treeNode.tId + "_ico");
+            switchObj.remove();
+            icoObj.before(switchObj);
 
+            if (treeNode.level > 1) {
+                var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level)+ "px'></span>";
+                switchObj.before(spaceStr);
+            }
+        }
+
+		function beforeClick(treeId, treeNode, clickFlag) {
+            if (treeNode.level === 0 ) {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.expandNode(treeNode);
+                return false;
+            }
+            return true;
 		}
 		function onClick(event, treeId, treeNode, clickFlag) {
 
 		}
+
+        function addHoverDom(treeId, treeNode) {
+
+        }
+        function removeHoverDom(treeId, treeNode) {
+
+        }
 		
 		function getParams(treeId, treeNode) {
 		    console.log(treeNode.teamOrUserId);
@@ -57,7 +114,15 @@
             var initData = sendPost(url,initRequestData);
             var initNodes = initData.datas;
             parseNodes(initNodes);
-			$.fn.zTree.init($("#treeDemo"), setting, initNodes);
+            var treeObj = $("#treeDemo");
+			$.fn.zTree.init(treeObj, setting, initNodes);
+            treeObj.hover(function () {
+                if (!treeObj.hasClass("showIcon")) {
+                    treeObj.addClass("showIcon");
+                }
+            }, function() {
+                treeObj.removeClass("showIcon");
+            });
 		});
 
         /**
