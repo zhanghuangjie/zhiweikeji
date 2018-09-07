@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>置维科技-上海置维科技安全响应平台</title>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <link href="../resources/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../css/login/login.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+
+    <form id="loginForm" class="form-signin">
+      <div class="logo">
+        <img src="../img/logo.png" alt="center" style="width: 160px; height:60px;margin-right: 200px">
+      </div>
+      <h1 class="h3 mb-3 font-weight-normal">请登录进入管理面板</h1>
+      <input type="hidden" id="osType" name="header.osType" value="PC">
+      <label for="userAccount" class="sr-only">账号</label>
+      <input type="text" id="userAccount" name="body.userAccount" class="form-control" placeholder="账号" required>
+      <label for="password" class="sr-only">密码</label>
+      <input type="password" id="password" name="body.password" class="form-control" placeholder="密码" required >
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <!--<button class="btn btn-lg btn-primary btn-block" onclick="login()">登录</button>-->
+      <a class="btn btn-lg btn-primary btn-block" onclick="login()">登录</a>
+      <p class="mt-5 mb-3 text-muted">&copy; 2018-2020</p>
+    </form>
+  </body>
+  <script src="../js/jquery-2.1.3.min.js"></script>
+  <script type="text/javascript">
+    function login() {
+        var url = USER_PREFIX + 'login';
+        var data = {
+            header : {}
+        };
+        data.header.osType = 'PC';
+        data.body = {
+            userAccount : $("#userAccount").val(),
+            password : $("#password").val()
+        };
+        var success = sendPost(url,data);
+        if (!success) {
+            alert("登录失败");
+            return;
+        } else {
+            var storage = window.localStorage;
+            storage.setItem("token", success.token);
+            storage.setItem("userId", success.userId);
+            storage.setItem("userName", success.userName);
+        }
+        enter();
+    }
+    function enter() {
+        window.location.href = "index.html";
+    }
+  </script>
+</html>
+
