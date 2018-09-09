@@ -49,10 +49,10 @@ function sendPost(url,data) {
                     result = true;
                 }
             } else if (parseData.code === "990113") {
-                window.location.href = "index.html";
+                window.location.href = "login.html";
             } else{
                 console.log("请求出错" + url);
-                return false;
+                result =  false;
             }
         }
     });
