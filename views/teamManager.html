@@ -7,7 +7,11 @@
 	<script src="../js/common.js"></script>
 	<script src="../js/teamManager/team.js"></script>
 	<script src="../js/template-web.js"></script>
+	<script src="../resources/bootstrap4/js/bootstrap.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap-contextmenu/0.3.4/bootstrap-contextmenu.min.js"></script>
 	<link rel="stylesheet" href="../resources/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
 	<style type="text/css">
 		.ztree * {font-size: 10pt;font-family:"Microsoft Yahei",Verdana,Simsun,"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial}
 		.ztree li ul{ margin:0; padding:0}
@@ -81,7 +85,7 @@
 			<span class="badge badge-secondary badge-pill"></span>
 
 		</h4>
-		<div class="zTreeDemoBackground left list-group mb-3 border">
+		<div class="zTreeDemoBackground left list-group mb-3 border" data-toggle="context" data-target="#context-menu">
 			<ul id="treeDemo" class="ztree"></ul>
 		</div>
 	</div>
@@ -89,13 +93,14 @@
 	<div class="col-md-8 order-md-2" id="rightContent">
 	</div>
 </div>
-<div id="rMenu" class="dropdown-menu" role="menu">
-	<ul>
-		<li id="m_add_team" onclick="showAddTeam();">增加团队</li>
-		<li id="m_add_user" onclick="showAddUser();">增加用户</li>
-		<li id="m_edit_team" onclick="showEditTeam();">修改团队</li>
-		<li id="m_edit_user" onclick="showEditUser();">修改用户</li>
-		<li id="m_del" onclick="showRemoveUser();">删除用户</li>
+<div id="context-menu">
+	<ul class="dropdown-menu" role="menu">
+		<li id="m_add_team" ><a tabindex="-1" onclick="showAddTeam();">增加团队</a></li>
+		<li id="m_edit_team" ><a tabindex="-1" onclick="showEditTeam();">修改团队</a></li>
+		<li class="divider border"></li>
+		<li id="m_add_user" ><a tabindex="-1" onclick="showAddUser();">增加用户</a></li>
+		<li id="m_edit_user" ><a tabindex="-1" onclick="showEditUser();">修改用户</a></li>
+		<li id="m_del" ><a tabindex="-1" onclick="showRemoveUser();">删除用户</a></li>
 	</ul>
 </div>
 </BODY>

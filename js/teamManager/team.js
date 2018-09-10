@@ -22,7 +22,7 @@ var setting = {
         beforeClick: beforeClick,
         onClick: onClick,
         beforeAsync : beforeAsync,
-        onRightClick: OnRightClick
+        /*onRightClick: OnRightClick*/
     },
     view: {
         addHoverDom: addHoverDom,
@@ -38,12 +38,12 @@ var setting = {
 
 var zTree,rMenu;
 
-function OnRightClick(event, treeId, treeNode) {
+/*function OnRightClick(event, treeId, treeNode) {
     zTree.selectNode(treeNode);
     showRMenu(treeNode.isParent, event.clientX, event.clientY);
-}
+}*/
 
-function showRMenu(isParent, x, y) {
+/*function showRMenu(isParent, x, y) {
     $("#rMenu ul").show();
     if (isParent) {
         $("#m_del").hide();
@@ -57,7 +57,7 @@ function showRMenu(isParent, x, y) {
     x += document.body.scrollLeft;
     rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
     $("body").bind("mousedown", onBodyMouseDown);
-}
+}*/
 function hideRMenu() {
     if (rMenu) rMenu.css({"visibility": "hidden"});
     $("body").unbind("mousedown", onBodyMouseDown);
@@ -125,6 +125,7 @@ $(document).ready(function(){
     zTree = $.fn.zTree.init(treeObj, setting, rootNode);
     treeObj.addClass("showIcon");
     rMenu = $("#rMenu");
+    $('.context').contextmenu();
     var initRightHtml = template('teamFormHtml', {
         mode : MODE.add,
         parentTeamId : 1
