@@ -157,6 +157,34 @@ function filter(treeId, parentNode, responseData) {
     }
 }
 
+/**
+ * 刷新当前节点
+ */
+function refreshNode() {
+    /*根据 treeId 获取 zTree 对象*/
+    var type = "refresh",
+        silent = false,
+        /*获取 zTree 当前被选中的节点数据集合*/
+        nodes = zTree.getSelectedNodes();
+    /*强行异步加载父节点的子节点。[setting.async.enable = true 时有效]*/
+    zTree.reAsyncChildNodes(nodes[0], type, silent);
+}
+
+/**
+ * 刷新当前选择节点的父节点
+ */
+function refreshParentNode() {
+    var type = "refresh",
+        silent = false,
+        nodes = zTree.getSelectedNodes();
+    /*根据 zTree 的唯一标识 tId 快速获取节点 JSON 数据对象*/
+    var parentNode = zTree.getNodeByTId(nodes[0].parentTId);
+    /*选中指定节点*/
+    zTree.selectNode(parentNode);
+    zTree.reAsyncChildNodes(parentNode, type, silent);
+}
+
+
 function showAddTeam() {
     var selectedNode = zTree.getSelectedNodes()[0];
     var showAddTeamHtml = template('teamFormHtml', {
@@ -171,6 +199,7 @@ function showAddTeam() {
 function addTeam() {
     var addTeamUrl = TEAM_PREFIX + 'add';
     submitForm('teamForm', addTeamUrl);
+    refreshParentNode();
 }
 
 function showEditTeam() {
@@ -187,11 +216,12 @@ function showEditTeam() {
 function editTeam() {
     var editTeamUrl = TEAM_PREFIX + 'modify';
     submitForm('teamForm', editTeamUrl);
+    refreshParentNode();
 }
 
 function showAddUser() {
     var selectedNode = zTree.getSelectedNodes()[0];
-    console.log(selectedNode);
+    //console.log(selectedNode);
     var showAddUserHtml = template('userFormHtml', {
         mode : MODE.add,
         teamId : selectedNode.teamOrUserId,
@@ -203,5 +233,6 @@ function showAddUser() {
 
 function addUser() {
     var addUserUrl = USER_PREFIX + 'add';
-    //submitForm('teamForm', addUserUrl);
+    submitForm('userForm', addUserUrl);
+    refreshNode();
 }

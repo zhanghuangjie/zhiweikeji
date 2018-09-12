@@ -115,6 +115,7 @@
 	<h4 class="mb-3 mt-5">{{mode.name}}团队</h4>
 	<form class="needs-validation" id="teamForm" novalidate>
 		{{if parentName != null}}<label >上级团队名：{{parentName}}</label>{{/if}}
+		<hr class="mb-4">
 		<div class="mb-3">
 			<label for="teamName">团队名：</label>
 			<div class="input-group">
@@ -142,8 +143,9 @@
 
 <script type="text/html" id="userFormHtml">
 	<h4 class="mb-3 mt-5">{{mode.name}}用户</h4>
-	<form class="needs-validation" novalidate>
+	<form class="needs-validation" id="userForm" novalidate>
 		{{if parentName != null}}<label >团队名：{{parentName}}</label>{{/if}}
+		<hr class="mb-4">
 		<div class="mb-3">
 			<label for="userName">用户名称:<span class="text-muted">(必填)</span></label>
 			<div class="input-group">

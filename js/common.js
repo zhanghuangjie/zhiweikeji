@@ -52,6 +52,7 @@ function sendPost(url,data) {
                 window.location.href = "login.html";
             } else{
                 console.log("请求出错" + url);
+                console.log(parseData);
                 result =  false;
             }
         }
@@ -110,8 +111,8 @@ $.fn.serializeObject = function() {
 function submitForm(formId, url) {
     var params = $('#' + formId).serializeObject();
     var fullParams = new DataTemplate(params);
+    console.log(fullParams);
     var responseData = sendPost(url,fullParams);
-    console.log(responseData);
     if (responseData) {
         alert('操作成功');
         return responseData;
