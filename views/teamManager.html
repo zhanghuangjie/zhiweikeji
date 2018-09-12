@@ -8,10 +8,10 @@
 	<script src="../js/teamManager/team.js"></script>
 	<script src="../js/template-web.js"></script>
 	<script src="../resources/bootstrap4/js/bootstrap.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap-contextmenu/0.3.4/bootstrap-contextmenu.min.js"></script>
+	<!--<script src="../resources/bootstrap4/js/BootstrapMenu.min.js"></script>-->
 	<link rel="stylesheet" href="../resources/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
+	<!--<link href="../resources/bootstrap4/css/bootstrap.min.css" rel="stylesheet">-->
 	<style type="text/css">
 		.ztree * {font-size: 10pt;font-family:"Microsoft Yahei",Verdana,Simsun,"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial}
 		.ztree li ul{ margin:0; padding:0}
@@ -35,42 +35,50 @@
 		.ztree li span.button.noline_open.level0 {background-position: 0 -18px;}
 		.ztree li span.button.noline_close.level0 {background-position: -18px -18px;}
 
-		div#rMenu {position:absolute; visibility:hidden; top:0; background-color: #555;text-align: left;padding: 2px;}
-		div#rMenu ul li{
-			margin: 1px 0;
-			padding: 0 5px;
-			cursor: pointer;
-			list-style: none outside none;
-			background-color: #DFDFDF;
-		}
-
-		.dropdown-menu .dropdown-menu {
+		.small-menu {
 			position: absolute;
-			top: -9px;
-			left: 100%;
+			width: 120px;
+			z-index: 99999;
+			border: solid 1px #CCC;
+			background: #EEE;
+			padding: 0px;
+			margin: 0px;
+			display: none;
 		}
 
-		.dropdown-menu li {
-			position: relative;
+		.small-menu li {
+			list-style: none;
+			padding: 0px;
+			margin: 0px;
 		}
-
-		.dropdown-menu li.hasChildren:before {
-			content: '';
-			position: absolute;
-			top: 50%;
-			right: 8px;
-			width: 0;
-			height: 0;
-			margin-top: -5px;
-			border-style: solid;
-			border-color: transparent transparent transparent rgba(0, 0, 0, 0.5);
-			border-width: 5px 0 5px 5px;
-			pointer-events: none;
-		}
-
-		.dropdown-menu li.hasChildren:hover > .dropdown-menu {
+		.small-menu li A {
+			color: #333;
+			text-decoration: none;
 			display: block;
+			line-height: 20px;
+			height: 20px;
+			background-position: 6px center;
+			background-repeat: no-repeat;
+			outline: none;
+			padding: 1px 5px;
+			padding-left: 28px;
 		}
+
+		.small-menu li a:hover {
+			color: #FFF;
+			background-color: #3399FF;
+			cursor  : default;
+		}
+
+		.small-menu-separator {
+			padding-bottom:0;
+			border-bottom: 1px solid #DDD;
+		}
+
+		.small-menu LI.edit A { background-image: url(../img/icons/team/edit.png);}
+		.small-menu LI.addTeam A { background-image: url(../img/icons/team/addTeam.png); }
+		.small-menu LI.addUser A { background-image: url(../img/icons/team/addUser.png); }
+		.small-menu LI.delete A { background-image: url(../img/icons/team/delete.png); }
 	</style>
 </HEAD>
 
@@ -93,29 +101,33 @@
 	<div class="col-md-8 order-md-2" id="rightContent">
 	</div>
 </div>
-<div id="context-menu">
-	<ul class="dropdown-menu" role="menu">
-		<li id="m_add_team" ><a tabindex="-1" onclick="showAddTeam();">增加团队</a></li>
-		<li id="m_edit_team" ><a tabindex="-1" onclick="showEditTeam();">修改团队</a></li>
+<ul id="menu"  class="small-menu" role="menu" aria-labelledby="context-menu-team">
+		<li id="m_add_team" class="addTeam" ><a tabindex="-1" onclick="showAddTeam();">增加团队</a></li>
+		<li id="m_edit_team" class="edit"><a tabindex="-1" onclick="showEditTeam();">修改团队</a></li>
 		<li class="divider border"></li>
-		<li id="m_add_user" ><a tabindex="-1" onclick="showAddUser();">增加用户</a></li>
-		<li id="m_edit_user" ><a tabindex="-1" onclick="showEditUser();">修改用户</a></li>
-		<li id="m_del" ><a tabindex="-1" onclick="showRemoveUser();">删除用户</a></li>
+		<li id="m_add_user" class="addUser"><a tabindex="-1" onclick="showAddUser();">增加用户</a></li>
+		<li id="m_edit_user" class="edit"><a tabindex="-1" onclick="showEditUser();">修改用户</a></li>
+		<li id="m_del" class="delete"><a tabindex="-1" onclick="showRemoveUser();">删除用户</a></li>
 	</ul>
-</div>
 </BODY>
 
 <script type="text/html" id="teamFormHtml">
-	<h4 class="mb-3 mt-5">{{mode.name}}</h4>
+	<h4 class="mb-3 mt-5">{{mode.name}}团队</h4>
 	<form class="needs-validation" id="teamForm" novalidate>
+		{{if parentName != null}}<label >上级团队名：{{parentName}}</label>{{/if}}
 		<div class="mb-3">
 			<label for="teamName">团队名：</label>
 			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">@</span>
-				</div>
+				{{if mode.code =='add' }}
 				<input type="text" class="form-control" id="teamName" name="teamName" placeholder="团队名称" required>
 				<input type="hidden" id="parentTeamId" name="parentTeamId" value="{{parentTeamId}}">
+				{{/if}}
+
+				{{if mode.code =='edit' }}
+				<input type="text" class="form-control" id="teamName" name="teamName" placeholder="团队名称" value="{{parentName}}" required>
+				<input type="hidden" id="teamId" name="teamId" value="{{parentTeamId}}">
+				{{/if}}
+
 				<div class="invalid-feedback" style="width: 100%;">
 					请填写名称.
 				</div>
@@ -129,15 +141,14 @@
 </script>
 
 <script type="text/html" id="userFormHtml">
-	<h4 class="mb-3 mt-5">Billing address</h4>
+	<h4 class="mb-3 mt-5">{{mode.name}}用户</h4>
 	<form class="needs-validation" novalidate>
+		{{if parentName != null}}<label >团队名：{{parentName}}</label>{{/if}}
 		<div class="mb-3">
-			<label for="username">团队名</label>
+			<label for="userName">用户名称:<span class="text-muted">(必填)</span></label>
 			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text">@</span>
-				</div>
-				<input type="text" class="form-control" id="username" placeholder="Username" required>
+				<input type="text" class="form-control" id="userName" name="userName" placeholder="用户名称" required>
+				<input type="hidden" id="teamId" name="teamId" value="{{teamId}}">
 				<div class="invalid-feedback" style="width: 100%;">
 					请填写名称.
 				</div>
@@ -145,22 +156,45 @@
 		</div>
 
 		<div class="mb-3">
-			<label for="email">Email <span class="text-muted">(Optional)</span></label>
-			<input type="email" class="form-control" id="email" placeholder="you@example.com">
-			<div class="invalid-feedback">
-				Please enter a valid email address for shipping updates.
+			<label for="userMail">用户邮箱:<span class="text-muted">(必填)</span></label>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text">@</span>
+				</div>
+				<input type="email" class="form-control" id="userMail" name="userMail" placeholder="请输入您的邮箱 例如:you@example.com">
+				<div class="invalid-feedback">
+					请填写用户邮箱.
+				</div>
 			</div>
 		</div>
 
 		<div class="mb-3">
-			<label for="address">Address</label>
-			<input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+			<label for="userAccount">用户账号:<span class="text-muted">(必填)</span></label>
+			<input type="text" class="form-control" id="userAccount" name="userAccount" placeholder="请输入您的账号" required>
 			<div class="invalid-feedback">
-				Please enter your shipping address.
+				请填写用户账号.
 			</div>
 		</div>
+
+		<div class="mb-3">
+			<label for="userPassword">用户密码:<span class="text-muted">(必填)</span></label>
+			<input type="text" class="form-control" id="userPassword" name="userPassword" placeholder="请输入您的密码" required>
+			<div class="invalid-feedback">
+				请填写用户密码.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label for="note">说明:<span class="text-muted">(必填)</span></label>
+			<input type="text" class="form-control" id="note" name="note" placeholder="note" required>
+			<div class="invalid-feedback">
+				请填写用户密码.
+			</div>
+		</div>
+		{{if mode.code == 'add' || mode.code == 'edit'}}
 		<hr class="mb-4">
-		<button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+		<a class="btn btn-primary btn-lg btn-block" onclick="{{mode.code}}User()">{{mode.name}}用户</a>
+		{{/if}}
 	</form>
 </script>
 </HTML>
