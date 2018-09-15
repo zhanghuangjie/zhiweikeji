@@ -51,8 +51,7 @@ function sendPost(url,data) {
             } else if (parseData.code === "990113") {
                 window.location.href = "login.html";
             } else{
-                console.log("请求出错" + url);
-                console.log(parseData);
+                layer.alert("请求出错: url=" + url);
                 result =  false;
             }
         }
@@ -113,7 +112,7 @@ function submitForm(formId, url) {
     var fullParams = new DataTemplate(params);
     var responseData = sendPost(url,fullParams);
     if (responseData) {
-        alert(responseData);
+        layer.msg("操作成功！");
         return responseData;
     }
 }

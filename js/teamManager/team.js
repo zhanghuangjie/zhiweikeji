@@ -48,7 +48,7 @@ function onRemove(e, treeId, treeNode) {
     var getUserUrl = USER_PREFIX + 'delete';
     var result = sendPost(getUserUrl, request);
     if (result) {
-        alert("删除成功");
+        layer.alert("删除成功");
     }
 }
 
@@ -104,7 +104,6 @@ function beforeClick(treeId, treeNode, clickFlag) {
     return true;
 }
 function onClick(event, treeId, treeNode, clickFlag) {
-    console.log(treeNode);
     if (treeNode.isParent) {
         showViewTeam();
     } else {
@@ -220,6 +219,7 @@ function addTeam() {
     var addTeamUrl = TEAM_PREFIX + 'add';
     submitForm('teamForm', addTeamUrl);
     refreshParentNode();
+
 }
 
 function showEditTeam() {
@@ -334,7 +334,7 @@ function removeUser() {
         var getUserUrl = USER_PREFIX + 'delete';
         var result = sendPost(getUserUrl, request);
         if (result) {
-            alert("删除成功");
+            layer.alert("删除成功");
             refreshParentNode();
         }
     }
