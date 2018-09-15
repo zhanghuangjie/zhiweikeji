@@ -111,10 +111,9 @@ $.fn.serializeObject = function() {
 function submitForm(formId, url) {
     var params = $('#' + formId).serializeObject();
     var fullParams = new DataTemplate(params);
-    console.log(fullParams);
     var responseData = sendPost(url,fullParams);
     if (responseData) {
-        alert('操作成功');
+        alert(responseData);
         return responseData;
     }
 }

@@ -107,7 +107,7 @@
 		<li class="divider border"></li>
 		<li id="m_add_user" class="addUser"><a tabindex="-1" onclick="showAddUser();">增加用户</a></li>
 		<li id="m_edit_user" class="edit"><a tabindex="-1" onclick="showEditUser();">修改用户</a></li>
-		<li id="m_del" class="delete"><a tabindex="-1" onclick="showRemoveUser();">删除用户</a></li>
+		<li id="m_del" class="delete"><a tabindex="-1" onclick="removeUser();">删除用户</a></li>
 	</ul>
 </BODY>
 
@@ -125,8 +125,13 @@
 				{{/if}}
 
 				{{if mode.code =='edit' }}
-				<input type="text" class="form-control" id="teamName" name="teamName" placeholder="团队名称" value="{{parentName}}" required>
-				<input type="hidden" id="teamId" name="teamId" value="{{parentTeamId}}">
+				<input type="text" class="form-control" id="teamName" name="teamName" placeholder="团队名称" value="{{name}}" required>
+				<input type="hidden" id="teamId" name="teamId" value="{{teamId}}">
+				{{/if}}
+
+				{{if mode.code =='view' }}
+				<input type="text" class="form-control" id="teamName" name="teamName" placeholder="团队名称" value="{{name}}" disabled>
+				<input type="hidden" id="teamId" name="teamId" value="{{teamId}}" disabled>
 				{{/if}}
 
 				<div class="invalid-feedback" style="width: 100%;">
@@ -149,7 +154,8 @@
 		<div class="mb-3">
 			<label for="userName">用户名称:<span class="text-muted">(必填)</span></label>
 			<div class="input-group">
-				<input type="text" class="form-control" id="userName" name="userName" placeholder="用户名称" required>
+				<input type="text" class="form-control" id="userName" name="userName" value="{{userName}}" placeholder="用户名称" required>
+				<input type="hidden" id="userId" name="userId" value="{{userId}}">
 				<input type="hidden" id="teamId" name="teamId" value="{{teamId}}">
 				<div class="invalid-feedback" style="width: 100%;">
 					请填写名称.
@@ -163,7 +169,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">@</span>
 				</div>
-				<input type="email" class="form-control" id="userMail" name="userMail" placeholder="请输入您的邮箱 例如:you@example.com">
+				<input type="email" class="form-control" id="userMail" name="userMail" value="{{userMail}}" placeholder="请输入您的邮箱 例如:you@example.com">
 				<div class="invalid-feedback">
 					请填写用户邮箱.
 				</div>
@@ -172,7 +178,7 @@
 
 		<div class="mb-3">
 			<label for="userAccount">用户账号:<span class="text-muted">(必填)</span></label>
-			<input type="text" class="form-control" id="userAccount" name="userAccount" placeholder="请输入您的账号" required>
+			<input type="text" class="form-control" id="userAccount" name="userAccount" value="{{userAccount}}" placeholder="请输入您的账号" required>
 			<div class="invalid-feedback">
 				请填写用户账号.
 			</div>
@@ -180,7 +186,7 @@
 
 		<div class="mb-3">
 			<label for="userPassword">用户密码:<span class="text-muted">(必填)</span></label>
-			<input type="text" class="form-control" id="userPassword" name="userPassword" placeholder="请输入您的密码" required>
+			<input type="text" class="form-control" id="userPassword" name="userPassword" value="{{userPassword}}" placeholder="请输入您的密码" required>
 			<div class="invalid-feedback">
 				请填写用户密码.
 			</div>
@@ -188,7 +194,7 @@
 
 		<div class="mb-3">
 			<label for="note">说明:<span class="text-muted">(必填)</span></label>
-			<input type="text" class="form-control" id="note" name="note" placeholder="note" required>
+			<input type="text" class="form-control" id="note" name="note" value="{{note}}" placeholder="note" required>
 			<div class="invalid-feedback">
 				请填写用户密码.
 			</div>

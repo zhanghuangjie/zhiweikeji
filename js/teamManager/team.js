@@ -22,7 +22,9 @@ var setting = {
         beforeClick: beforeClick,
         onClick: onClick,
         beforeAsync : beforeAsync,
-        onRightClick: OnRightClick
+        onRightClick: OnRightClick,
+        beforeRemove : beforeRemove,
+        onRemove : onRemove
     },
     view: {
         addHoverDom: addHoverDom,
@@ -31,10 +33,25 @@ var setting = {
         //showIcon: false,
         selectedMulti: false,
         dblClickExpand: false,
-        addDiyDom : addDiyDom
+        addDiyDom : addDiyDom,
     }
 
 };
+
+function beforeRemove(treeId, treeNode) {
+    zTree.selectNode(treeNode);
+    return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+}
+
+function onRemove(e, treeId, treeNode) {
+    var request = new DataTemplate({userId: treeNode.teamOrUserId});
+    var getUserUrl = USER_PREFIX + 'delete';
+    var result = sendPost(getUserUrl, request);
+    if (result) {
+        alert("删除成功");
+    }
+}
+
 
 var zTree;
 
@@ -58,10 +75,8 @@ function OnRightClick(event, treeId, treeNode) {
         $("#menu").popupSmallMenu({
             event : event,
             onClicfkItem  : function(item) {
-
             }
         });
-
     }
 }
 
@@ -89,7 +104,12 @@ function beforeClick(treeId, treeNode, clickFlag) {
     return true;
 }
 function onClick(event, treeId, treeNode, clickFlag) {
-
+    console.log(treeNode);
+    if (treeNode.isParent) {
+        showViewTeam();
+    } else {
+        showViewUser();
+    }
 }
 
 function addHoverDom(treeId, treeNode) {
@@ -204,10 +224,13 @@ function addTeam() {
 
 function showEditTeam() {
     var selectedNode = zTree.getSelectedNodes()[0];
+    var parent = selectedNode.getParentNode();
     var showEditTeamHtml = template('teamFormHtml', {
-        mode : MODE.edit,
-        parentTeamId : selectedNode.teamOrUserId,
-        parentName : selectedNode.name
+        mode : MODE.view,
+        parentTeamId : parent.teamOrUserId,
+        parentName : parent.name,
+        teamId : selectedNode.teamOrUserId,
+        name : selectedNode.name
     });
     $('#rightContent').html(showEditTeamHtml);
     $("#menu").hide();
@@ -219,11 +242,25 @@ function editTeam() {
     refreshParentNode();
 }
 
+function showViewTeam() {
+    var selectedNode = zTree.getSelectedNodes()[0];
+    var parent = selectedNode.getParentNode();
+    var showViewTeamHtml = template('teamFormHtml', {
+        mode : MODE.view,
+        parentTeamId : parent.teamOrUserId,
+        parentName : parent.name,
+        teamId : selectedNode.teamOrUserId,
+        name : selectedNode.name
+    });
+    $('#rightContent').html(showViewTeamHtml);
+    $("#menu").hide();
+}
+
 function showAddUser() {
     var selectedNode = zTree.getSelectedNodes()[0];
-    //console.log(selectedNode);
     var showAddUserHtml = template('userFormHtml', {
         mode : MODE.add,
+        //增加用户 当前被选中的节点为新增用户的父节点
         teamId : selectedNode.teamOrUserId,
         parentName : selectedNode.name
     });
@@ -235,4 +272,70 @@ function addUser() {
     var addUserUrl = USER_PREFIX + 'add';
     submitForm('userForm', addUserUrl);
     refreshNode();
+}
+
+function showEditUser() {
+    var fullUserInfo = getFullUserInfo();
+    var showEditUserHtml = template('userFormHtml', {
+        mode : MODE.edit,
+        teamId : fullUserInfo.teamId,
+        userId : fullUserInfo.userId,
+        userName : fullUserInfo.userName,
+        userMail : fullUserInfo.userMail,
+        userAccount : fullUserInfo.userAccount,
+        userPassword : fullUserInfo.userPassword,
+        note : fullUserInfo.note
+    });
+    console.log(fullUserInfo);
+    $('#rightContent').html(showEditUserHtml);
+    $("#menu").hide();
+}
+
+function editUser() {
+    var editUserUrl = USER_PREFIX + 'modify';
+    submitForm('userForm', editUserUrl);
+    refreshNode();
+}
+
+function getFullUserInfo() {
+    var selectedNode = zTree.getSelectedNodes()[0];
+    var teamId = selectedNode.pid;
+    var request = new DataTemplate({userId: selectedNode.teamOrUserId});
+    var getUserUrl = USER_PREFIX + 'query';
+    var fullUserInfo = sendPost(getUserUrl, request);
+    fullUserInfo.teamId = teamId;
+    fullUserInfo.userId = selectedNode.teamOrUserId;
+    return fullUserInfo;
+}
+
+function showViewUser() {
+    var fullUserInfo = getFullUserInfo();
+    var showViewUserHtml = template('userFormHtml', {
+        mode : MODE.view,
+        teamId : fullUserInfo.teamId,
+        userName : fullUserInfo.userName,
+        userMail : fullUserInfo.userMail,
+        userAccount : fullUserInfo.userAccount,
+        userPassword : fullUserInfo.userPassword,
+        note : fullUserInfo.note
+    });
+    $('#rightContent').html(showViewUserHtml);
+    $("#menu").hide();
+}
+
+/**
+ * 右键菜单调用删除 zTree 的callback失效
+ */
+function removeUser() {
+    var selectedNode = zTree.getSelectedNodes()[0];
+    var confirmNode = beforeRemove('treeDemo', selectedNode);
+    if (confirmNode) {
+        var request = new DataTemplate({userId: selectedNode.teamOrUserId});
+        var getUserUrl = USER_PREFIX + 'delete';
+        var result = sendPost(getUserUrl, request);
+        if (result) {
+            alert("删除成功");
+            refreshParentNode();
+        }
+    }
 }
