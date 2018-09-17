@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+       a {cursor  : pointer;}
+       .input-group-prepend{
+           width: 100px;
+       }
+    </style>
+
+</head>
+<body>
+    <div class="m-5">
+        <div class="row mb-2">
+            <div class="col-md-7" >
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body d-flex flex-column align-items-start">
+                        <strong class="d-inline-block mb-2 text-primary">系统设置</strong>
+                        <h3 class="mb-0">
+                            <p class="text-dark" href="#">集成设置</p>
+                        </h3>
+                        <!--<div class="mb-1 text-muted">Nov 12</div>-->
+                        <!--<p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>-->
+                        <div>
+                            <table id="settingTable" class="table"></table>
+                        </div>
+                        <!--<a href="#">Continue reading</a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body d-flex flex-column align-items-start" id="apiRightContent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/html" id="apiSettingHtml">
+    <h3 class="mb-0">
+        <p class="text-dark" href="#">接口</p>
+    </h3>
+    <div class="mb-3">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">接口名称：</span>
+            </div>
+            <input type="text" class="form-control" id="interfaceName" name="interfaceName" value="{{interfaceName}}">
+            <input type="hidden" class="form-control" id="interfaceId" name="interfaceId" value="{{interfaceId}}">
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">扫描类型：</span>
+            </div>
+            <select id="scanType" name="scanType" value="{{scanType}}">
+                <option value="1">静态扫描</option>
+                <option value="2">动态扫描</option>
+            </select>
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">URL地址：</span>
+            </div>
+            <input type="text" class="form-control" id="urlAddress" name="urlAddress" value="{{urlAddress}}">
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">帐号：</span>
+            </div>
+            <input type="text" class="form-control" id="account" name="account" value="{{account}}">
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">密码：</span>
+            </div>
+            <input type="text" class="form-control" id="password" name="password" value="{{password}}">
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">密钥：</span>
+            </div>
+            <input type="text" class="form-control" id="secretKey" name="secretKey" value="{{secretKey}}">
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">命令模版：</span>
+            </div>
+            <input type="text" class="form-control" id="commandTemplate" name="commandTemplate" value="{{commandTemplate}}">
+        </div>
+
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">状态：</span>
+            </div>
+            <label><input type="radio" class="form-control" name="status" value="1">开启  </label>
+            <label><input type="radio" class="form-control" name="status" value="2">禁用</label>
+        </div>
+
+    </div>
+    {{if mode.code == 'edit'}}
+    <hr class="mb-4">
+    <a class="btn btn-primary btn-lg btn-block" onclick="editApi()">保存</a>
+    {{/if}}
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#settingTable').bootstrapTable({
+            url : INTERFACE_PREFIX + 'query',
+            method : 'POST',
+            cache : false,
+            //dataType : 'json',
+            contentType : 'application/json',
+            pagination : true,
+            queryParams : queryParams,
+            //queryParamsType : '',
+            responseHandler : responseHandler,
+            pageSize : 5,
+            pageList : [5, 10, 20, 100],
+            pageNumber : 1,
+            sidePagination: "server",
+            clickToSelect : true,
+            singleSelect : true,
+            columns: [
+                {
+                    checkbox : true
+                },
+                {
+                    field: 'interfaceName',
+                    title: '接口名称',
+                    class : 'table-cell',
+                    align : 'center'
+                },
+                {
+                    field: 'scanType',
+                    title: '扫描类型',
+                    class : 'table-cell',
+                    align : 'center',
+                    /** 1:静态扫描 2：动态扫描*/
+                    formatter: function (value,row,index) {
+                        if (value === '1' || value === 1) {
+                            return '静态扫描';
+                        } else {
+                            return '动态扫描';
+                        }
+                    }
+                },
+                {
+                    field: 'urlAddress',
+                    title: 'URL地址',
+                    class : 'table-cell',
+                    align : 'center'
+                },
+                {
+                    field: 'status',
+                    title: '状态(开启/禁用)',
+                    formatter: function (value,row,index) {
+                        if (value === '1' || value === 1) {
+                            return '启用';
+                        } else {
+                            return '禁用';
+                        }
+                    },
+                    class : 'table-cell',
+                    align : 'center'
+                },
+                {
+                    title : '操作',
+                    field: 'interfaceId',
+                    formatter: function (value,row,index) {
+                        return '<a class="text-primary" onclick="">编辑</a>  '
+                        + '<a class="text-primary" onclick="">查看</a>'
+                    },
+                    class : 'table-cell',
+                    align : 'center'
+                }
+                ]
+
+        });
+
+        var html = template('apiSettingHtml', {
+            mode : MODE.view
+        });
+        $('#apiRightContent').html(html);
+    });
+
+    function queryParams(params) {
+        var temp = {
+            pageNum: params.offset+1,
+            pageSize: params.limit
+        };
+        var p = new DataTemplate(temp);
+        return JSON.stringify(p);
+    }
+
+    function responseHandler(res) {
+        //var parseData= JSON.parse(res);
+        console.log(res);
+        var data ={};
+        if(res.code === "0") {
+            //有回传数据的回转
+            if (res.data) {
+                data = res.data;
+                return {
+                    rows : data.datas,
+                    total : data.totalCount
+                }
+            }
+        }
+        return data;
+    }
+
+</script>
+</html>

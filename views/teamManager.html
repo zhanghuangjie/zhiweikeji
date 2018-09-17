@@ -76,25 +76,23 @@
 </HEAD>
 
 <BODY>
-<div class="content_wrap">
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 order-md-1 mb-4" id="leftContent">
+			<h4 class="d-flex justify-content-between align-items-center mb-3 mt-5">
+				<span class="text-muted">团队管理</span>
+				<span class="badge badge-secondary badge-pill"></span>
 
-</div>
-<div class="row">
-	<div class="col-md-4 order-md-1 mb-4" id="leftContent">
-		<h4 class="d-flex justify-content-between align-items-center mb-3 mt-5">
-			<span class="text-muted">团队管理</span>
-			<span class="badge badge-secondary badge-pill"></span>
+			</h4>
+			<div class="zTreeDemoBackground left list-group mb-3 border" data-toggle="context" data-target="#context-menu">
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+		</div>
 
-		</h4>
-		<div class="zTreeDemoBackground left list-group mb-3 border" data-toggle="context" data-target="#context-menu">
-			<ul id="treeDemo" class="ztree"></ul>
+		<div class="col-md-8 order-md-2" id="rightContent">
 		</div>
 	</div>
-
-	<div class="col-md-8 order-md-2" id="rightContent">
-	</div>
-</div>
-<ul id="menu"  class="small-menu" role="menu" aria-labelledby="context-menu-team">
+	<ul id="menu"  class="small-menu" role="menu" aria-labelledby="context-menu-team">
 		<li id="m_add_team" class="addTeam" ><a tabindex="-1" onclick="showAddTeam();">增加团队</a></li>
 		<li id="m_edit_team" class="edit"><a tabindex="-1" onclick="showEditTeam();">修改团队</a></li>
 		<li class="divider border"></li>
@@ -102,6 +100,7 @@
 		<li id="m_edit_user" class="edit"><a tabindex="-1" onclick="showEditUser();">修改用户</a></li>
 		<li id="m_del" class="delete"><a tabindex="-1" onclick="removeUser();">删除用户</a></li>
 	</ul>
+</div>
 </BODY>
 
 <script type="text/html" id="teamFormHtml">

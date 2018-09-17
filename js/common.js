@@ -5,6 +5,7 @@ function reloadpage(url){if(url){window.location.href=url;}else{window.location.
 var urlPrefix = 'http://61.147.125.143:8080/codesecurity-api/rest/';
 var USER_PREFIX = urlPrefix + 'user/';
 var TEAM_PREFIX = urlPrefix + "team/";
+var INTERFACE_PREFIX = urlPrefix + "interface/";
 
 var MODE = {
     view : { code : 'view' , name : '查看'},
