@@ -42,6 +42,7 @@ function sendPost(url,data) {
         type:"POST",
         contentType:"application/json;charset=utf-8",
         async:false,
+        //crossDomain: true,
         success : function (data) {
             var parseData= JSON.parse(data);
             if(parseData.code === "0"){
