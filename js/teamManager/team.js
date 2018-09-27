@@ -226,7 +226,7 @@ function showEditTeam() {
     var selectedNode = zTree.getSelectedNodes()[0];
     var parent = selectedNode.getParentNode();
     var showEditTeamHtml = template('teamFormHtml', {
-        mode : MODE.view,
+        mode : MODE.edit,
         parentTeamId : parent.teamOrUserId,
         parentName : parent.name,
         teamId : selectedNode.teamOrUserId,
