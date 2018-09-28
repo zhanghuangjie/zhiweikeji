@@ -55,8 +55,9 @@ function sendPost(url,data) {
                 }
             } else if (parseData.code === "990113") {
                 window.location.href = "login.html";
+                return false;
             } else{
-                layer.alert("请求出错: url=" + url);
+                layer.alert("请求出错: " + parseData.msg);
                 result =  false;
             }
         }

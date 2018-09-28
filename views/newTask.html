@@ -33,9 +33,26 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">文件设置：</span>
                 </div>
-                <a class="btn btn-outline-primary mr-2" href="#" onclick="openFileDialog()">本地上传</a>
-                <input type="hidden" class="form-control" id="fileName" name="fileName">
-                <a class="btn btn-outline-primary" href="#" onclick="openFileDialog()">远程文件</a>
+                <input type="hidden" class="form-control" id="uploadType" name="uploadType">
+                <a class="btn btn-outline-primary ml-2 mr-2" href="#" onclick="openFileDialog()">本地上传</a>
+
+                <a class="btn btn-outline-primary" href="#" onclick="openRemoteDialog()">远程文件</a>
+              </div>
+              <div class="input-group m-1" id="fileDiv" style="display: none">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">存储文件名：</span>
+                </div>
+                <input type="text" class="form-control" id="fileName" name="fileName" readonly>
+              </div>
+              <div class="input-group m-1" id="remoteDiv" style="display: none">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">远程  URL：</span>
+                </div>
+                <input type="hidden" class="form-control" id="remoteType" name="remoteType">
+                <input type="text" class="form-control"   id="svnGitUrl" name="svnGitUrl" readonly>
+                <input type="hidden" class="form-control" id="svnGitUsername" name="svnGitUsername">
+                <input type="hidden" class="form-control" id="svnGitPwd" name="svnGitPwd">
+                <input type="hidden" class="form-control" id="gitBranchname" name="gitBranchname">
               </div>
 
               <div class="input-group m-1">
@@ -58,7 +75,12 @@
             <h4 class="my-0 font-weight-normal" align="left">基础设置</h4>
           </div>
           <div class="card-body">
+            <div class="input-group m-1">
+              <div class="input-group-prepend" id="interfaceListTitle">
+                <span class="input-group-text">接口选择：</span>
+              </div>
 
+            </div>
           </div>
         </div>
         <div class="card mb-4 box-shadow">
@@ -75,6 +97,7 @@
   </body>
 
   <script src="../js/jquery.form.js" type="text/javascript"></script>
+  <script src="../js/newTask/newTask.js" type="text/javascript"></script>
   <script type="text/javascript">
       $(function () {
           var url = TASK_ADD_PREFIX + "teamSetting";
@@ -85,45 +108,47 @@
           for(var i in teamArray) {
               html += '<option value=\"' + teamArray[i].teamId + '\">' + teamArray[i].teamName + '</option>'
           }
-
           $("#teamId").html(html);
 
       });
 
-      function openFileDialog () {
-          var accessToken = getAccessToken();
-          var action = TASK_ADD_PREFIX + 'uploadfile';
-          layer.open({
-              title : "请选择文件",
-              type: 1,
-              skin: 'layui-layer-demo', //样式类名
-              closeBtn: 1, //不显示关闭按钮
-              btn : ['确认上传', '取消'],
-              yes: function(index){
-                  var form = $("#fileForm");
-                  var file=$("#uploadFile").val();
-                  if(file === ""){
-                      layer.alert("请选择文件!");
-                      return false;
-                  }
-                  form.ajaxSubmit(function (data) {
-                      var response= JSON.parse(data);
-                      if (response.code === "0") {
-                          layer.msg("上传成功！服务器存储文件名=" + response.data.fileName, {time:2000});
-                          $('#fileName').val(response.data.fileName);
-                          layer.close(index);
-                      } else {
-                          layer.msg("上传失败！原因" + response.msg);
-                      }
-                  });
-              },
-              anim: 2,
-              shadeClose: true, //开启遮罩关闭
-              content: '<form id="fileForm" method="post" enctype="multipart/form-data" action="'+ action +'">' +
-              '<input type="file" class="form-control" name="uploadFile" id="uploadFile" accept=".zip">' +
-              '<input type="hidden" name="accesstoken" value="'+ accessToken +'">' +
-              '</form>'
-          });
-      }
+
+  </script>
+  <script type="text/html" id="remoteHtml">
+    <div>
+      <div class="input-group m-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text">远程代码仓库类型：</span>
+        </div>
+        <select id="pop_remoteType" class="w-50">
+          <option value="1" {{if remoteType == 1}}selected {{/if}}>SVN</option>
+          <option value="2" {{if remoteType == 2}}selected {{/if}}>GIT</option>
+        </select>
+      </div>
+      <div class="input-group m-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text">远程仓库地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <input type="text" class="w-50" id="pop_svnGitUrl" value="{{svnGitUrl}}">
+      </div>
+      <div class="input-group m-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text">连接用户名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <input type="text" class="w-50" id="pop_svnGitUsername" value="{{svnGitUsername}}">
+      </div>
+      <div class="input-group m-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text">连接密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <input type="text" class="w-50" id="pop_svnGitPwd" value="{{svnGitPwd}}">
+      </div>
+      <div class="input-group m-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text">git分支：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </div>
+        <input type="text" class="w-50" id="pop_gitBranchname" value="{{gitBranchname}}">
+      </div>
+    </div>
   </script>
 </html>
