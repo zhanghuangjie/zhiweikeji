@@ -76,11 +76,20 @@
           </div>
           <div class="card-body">
             <div class="input-group m-1">
-              <div class="input-group-prepend" id="interfaceListTitle">
+              <div class="input-group-prepend">
                 <span class="input-group-text">接口选择：</span>
               </div>
-
             </div>
+            <div id="interfaceListTitle">
+            </div>
+            <div class="input-group m-1">
+              <div class="input-group-prepend">
+                <span class="input-group-text">扫描提交发送：</span>
+              </div>
+              <input type="text" class="form-control" id="submitReceivers" name="submitReceivers" readonly>
+            </div>
+
+
           </div>
         </div>
         <div class="card mb-4 box-shadow">
@@ -110,6 +119,22 @@
           }
           $("#teamId").html(html);
 
+          // 接口查询
+          var interfaceParam = new DataTemplate({
+              pageNum: 1,
+              pageSize: 100
+          });
+          var interfaceUrl = INTERFACE_PREFIX + 'query';
+          var _interfaceData = sendPost(interfaceUrl, interfaceParam);
+          var interfaceArray = _interfaceData.datas;
+          var interfaceHtml = "";
+          //interfaceArray = [{interfaceId : 1, interfaceName : '接口1接口1接口1接口1接口1'}, {interfaceId : 2, interfaceName : '接口2'}, {interfaceId : 3, interfaceName : '接口3'}];
+          for (var i in interfaceArray) {
+              interfaceHtml += '<div class="custom-control custom-checkbox"><input type="checkbox" id="interfaceList'+ i +'" name="interfaceList" class="custom-control-input" value="'+ interfaceArray[i].interfaceId +'">'
+                  + '<label class="custom-control-label" for="interfaceList'+ i +'">'+ interfaceArray[i].interfaceName +'</label>' +
+                  '</div>';
+          }
+          $("#interfaceListTitle").html(interfaceHtml);
       });
 
 
